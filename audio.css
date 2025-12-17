@@ -1,0 +1,457 @@
+/* ========== 基础样式 ========== */
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+    /* 背景设置 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111;
+    
+    position: relative;
+}
+
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ========== 遮罩层（调亮一些） ========== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 调整透明度，让背景更亮 */
+    background: rgba(0, 0, 0, 0.15); /* 从0.3减小到0.15 */
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ========== 上半部分 ========== */
+.upper-container{
+    height: 80%;
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+}
+
+.record-container{
+    width: 50%;
+    height: 100%;
+    float: left;
+    padding-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 5%; /* 添加左边距 */
+}
+
+/* 修复唱片尺寸 - 放大唱片 */
+.record-bg{
+    width: 350px; /* 从300增加到350 */
+    height: 350px; /* 从300增加到350 */
+    border-radius: 50%;
+        /* 推荐的深色渐变 */
+    background: linear-gradient(145deg, 
+        rgb(246, 244, 246) 0%,
+        rgb(246, 246, 247) 50%,
+        rgb(247, 246, 248) 100%);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 添加立体效果 */
+    border: 2px solid #2d5008;
+    box-shadow: 
+        inset 0 0 30px rgba(0,0,0,0.8),
+        0 10px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.05);
+    
+    /* 添加纹理 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 添加唱片纹理线 */
+.record-bg::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: 
+        repeating-radial-gradient(
+            circle at center,
+            transparent,
+            transparent 10px,
+            rgba(255,255,255,0.03) 10px,
+            rgba(255,255,255,0.03) 12px
+        );
+}
+
+/* 唱片图片覆盖黑色背景 */
+.record-img{
+    width: 350px; /* 从250大幅增加到430 */
+    height: 350px; /* 从250大幅增加到430 */
+    background-image: url('./img/record0.jpg');
+    background-size: cover; /* 改为cover确保完全覆盖 */
+    background-position: center;
+    border-radius: 50%;
+}
+
+
+/* ========== 歌曲信息 ========== */
+.introduction-container{
+    color: rgb(153, 156, 146);
+    width: 50%;
+    height: 75%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30%; /* 增加左边距，使其向右移动 */
+}
+
+.music-title{
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 添加文字阴影 */
+}
+
+.author-container{
+    font-size: 2rem;
+    color: rgb(153, 156, 146,0.8);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ========== 下半部分 ========== */
+.bottom-container{
+    height: 20%;
+    padding: 0 30px;
+}
+
+/* 进度条 */
+.progress{
+    width: 100%;
+    height: 3px;
+    background-color: rgba(255,255,255,0.3);
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+/* 进度条已播放 */
+.progress-play{
+    width: 0%;
+    height: 3px;
+    background-color: #7BD1A1;
+    position: relative;
+}
+
+/* 播放进度的小圆点 */
+.progress-play::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #7BD1A1;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.progress:hover .progress-play::after {
+    opacity: 1;
+}
+
+/* ========== 控制栏 ========== */
+.controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left{
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.center{
+    width: 40%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-icon{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.center-icon:hover{
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+.center-icon:active{
+    opacity: 0.6;
+}
+
+#playPause{
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+}
+
+.icon-play{
+    background-image: url("./img/继续播放.png");
+    background-size: 100% 100%;
+}
+
+.icon-pause{
+    background-image: url("./img/暂停.png");
+    background-size: 100% 100%;
+}
+
+/* ========== 按钮图标 ========== */
+#playMode{
+    background-image: url("./img/mode1.png");
+    background-size: 100% 100%;
+}
+
+#before-music{
+    background-image: url("./img/上一首.png");
+    background-size: 100% 100%;
+}
+
+#last-music{
+    background-image: url("./img/下一首.png");
+    background-size: 100% 100%;
+}
+
+#volumn{
+    background-image: url("./img/音量.png");
+    background-size: 100% 100%;
+}
+
+/* 音量条 */
+#volumn-togger{
+    width: 100px;
+    height: 8px;
+    appearance: none;
+    background-color: rgba(220, 220, 220, 0.3);
+    border-radius: 15px;
+    outline: none;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(91, 91, 91, 0.5);
+    cursor: pointer;
+}
+
+#volumn-togger::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 1px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7BD1A1;
+    border: 4px solid #fff;
+    cursor: pointer;
+    box-shadow: -407px 0 0 400px #7BD1A1;
+}
+
+/* ========== 右侧按钮 ========== */
+.right{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-icon{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.bottom-icon:hover{
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+.bottom-icon:active{
+    opacity: 0.6;
+}
+
+#MV{
+    background-image: url("./img/MV.png");
+    background-size: 100% 100%;
+}
+
+#list{
+    background-image: url("./img/列表.png");
+    background-size: 100% 100%;
+}
+
+#speed{
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+#speed:hover{
+    opacity: 0.7;
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* ========== 唱片旋转动画 ========== */
+.rotate-play{
+    animation: rotateAni 10s infinite linear;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+}
+
+@keyframes rotateAni {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== 播放列表 ========== */
+.close-list{
+    display: none;
+    width: 75%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.music-container{
+    display: none;
+    height: 100%;
+    width: 25%;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.musicList-title{
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.musiclists{
+    font-size: 1.2rem;
+}
+
+.musiclists div{
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.musiclists div:hover{
+    background-color: rgba(255,255,255,0.1);
+}
+
+.musiclists div.active {
+    background-color: rgba(123, 209, 161, 0.2);
+    color: #7BD1A1;
+}
+
+.list-show{
+    animation: showAni 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.list-hide{
+    animation: hideAni 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes showAni {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+
+@keyframes hideAni {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(100%);
+    }
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 1200px) {
+    .record-bg {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .record-img {
+        width: 380px;
+        height: 380px;
+    }
+    
+    .music-title {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .record-bg {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .record-img {
+        width: 330px;
+        height: 330px;
+    }
+    
+    .music-title {
+        font-size: 3rem;
+    }
+    
+    .author-container {
+        font-size: 1.5rem;
+    }
+    
+    .center {
+        width: 50%;
+    }
+}
